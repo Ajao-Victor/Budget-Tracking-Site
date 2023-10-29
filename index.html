@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITEM(S) ADD</title>
+    <link rel="stylesheet" href="./bootstrap-5.0.2-dist/css/bootstrap.css">
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+      }
+    </style>
+</head>
+<body style="background-color: mediumvioletred;color: white;">
+  <div style="width: 100%;display: flex;justify-content: center;margin: 20px 0px 20px 0px;">
+    <h2 style="text-align: center;">BUDGET TRACKER</h2>
+  </div>
+  <div>
+    <div id="error1"></div>
+  </div>
+    <div style="width: 100%;display: flex;justify-content: center;">
+      <div style="width: 40%;display: flex;flex-direction: column;height: 140px;justify-content: space-around;">
+        <input type="text" placeholder="item name" id="name2" style="border: 1px solid white;border-radius: 10px;background-color: lightblue;" class="form-control">
+        <input type="number" placeholder="item price" id="price" style="border: 1px solid white;border-radius: 10px;background-color: lightblue;" class="form-control">
+        <input type="number" placeholder="item quantity" id="quantity" style="border: 1px solid white;border-radius: 10px;background-color: lightblue;" class="form-control">
+      </div>
+    </div>
+    <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
+      <div style="width: 35%;display: flex;flex-direction: column;height: 30px;">
+        <input type="button" value="Add To Cart" onclick="add()" style="width: 100%;border: 1px solid white;background: transparent;height: 100%;border-radius: 15px;color: white;">
+      </div>
+    </div>
+    <input type="button" value="check Cart" onclick="check()" style="position: absolute;top: 10px;right: 10px;z-index: 0;background: transparent;border-radius: 10px;color: white;border: 1px solid white;">
+    <div style="border:2px solid white;padding: 10px 0px 10px 20px;margin-bottom: 20px;border-radius: 10px;">
+      <p style="font-style: italic;">BUDGET : #<span id="budget"></span></p>
+      <p style="font-style: italic;">AVAILABLE BALANCE : #<span id="amount"></span></p>
+    </div>
+    <div style="width: 100%;display: flex;justify-content: center;">
+      <div style="width: 80%;display: flex;justify-content: space-between;">
+         <!-- Button trigger modal -->
+       <button type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: 1px solid white;height: 40px;background: transparent;border-radius: 5px;color: white;"> 
+            Add Budget
+        </button> 
+        <input type="button" value="clear budget" onclick="budgetClear()" style="border: 1 px solid white;height: 40px;background: transparent;border-radius: 5px;color: white;">
+      </div>
+     </div>
+    <div>
+       
+  
+  <!-- Modal -->
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: mediumvioletred;color: white;">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="exampleModalLabel" >The Amount you input will be your budget</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <input type="number" id="balanceInput" style="border: 1px solid white; background-color: lightblue;border-radius: 10px;" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="balance()">Top UP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+    <div style="position: absolute;bottom: 0px;width: 100%;">
+      <marquee behavior="" direction="left" style="font-style: oblique;position: absolute;bottom: 0px;width: 100%;">Dear user, Cick the "Check Cart" button to view the items you've bougt at the end of the transaction.</marquee>
+    </div>
+</body>
+<script src="./bootstrap-5.0.2-dist/js/bootstrap.js"></script>
+<script src="script.js"></script>
+<script>
+  function prices() {
+    let b = Number(JSON.parse(localStorage.getItem("setAmountDisplay")))
+document.getElementById("amount").innerHTML = b
+
+
+ 
+  let bal = JSON.parse(localStorage.getItem("budgetAmount"))
+  if (bal === null) {
+    document.getElementById("budget").innerHTML = "No Budget yet"
+  }
+  else if (bal !== null) {
+    let bal2 = bal.input
+    document.getElementById("budget").innerHTML = bal2
+  }
+
+ }
+  
+  prices()
+  const budgetClear = () => {
+    localStorage.removeItem("setAmountDisplay")
+    localStorage.removeItem("budgetAmount")
+    localStorage.removeItem("set")
+    let bal = JSON.parse(localStorage.getItem("budgetAmount"))
+  if (bal === null) {
+    document.getElementById("budget").innerHTML = "No Budget yet"
+    document.getElementById("amount").innerHTML = 0
+  }
+  else if (bal !== null) {
+    let bal2 = bal.input
+    document.getElementById("budget").innerHTML = bal2
+  }
+  error1.innerHTML= ""
+  }
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> --> 
